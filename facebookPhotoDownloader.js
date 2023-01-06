@@ -4,9 +4,10 @@
 
 //---- INPUT PARAMS
 const makeItHumanlike = false;
-const isCalibrating = true; //don't save if we are calibrating
+const isCalibrating = false; //don't save if we are calibrating
 const totalPhotoCount = 2;
-const delayBetweenSaves_ms = 2000;
+const delayBetweenSaves_ms = 10000; //we want it to be long enough that we can terminate the process if we need to (manually from cmd)
+const delayWaitForSaveModal_ms = 2000;
 
 //---- CALIBRATION -----//
 const units = 20; //pixels
@@ -33,7 +34,7 @@ function moveMouseRelative(x, y){
     moveMouseAbsolute(currentPosition.x + x, currentPosition.y + y);
 }
 
-function savePhoto(){
+async function savePhoto(){
     //photo is about in the middle
     moveMouseAbsolute(screenDimensions.width/2, screenDimensions.height/2);
 
@@ -42,6 +43,8 @@ function savePhoto(){
     moveMouseRelative(toContextMenuSave_dx, toContextMenuSave_dy);
     robot.mouseClick();
     moveMouseRelative(toModalSaveButton_dx, toModalSaveButton_dy);
+
+    await WaitAsync(delayWaitForSaveModal_ms)
 
     if (isCalibrating){
         robot.keyTap("escape");
@@ -55,6 +58,10 @@ function navigateToNext(){
     robot.keyTap("right")
 }
 
+async function WaitAsync(delayMs){
+    await new Promise(resolve => setTimeout(resolve, delayMs));
+}
+
 
 //---- BEGIN SCRIPT ----//
 
@@ -66,9 +73,9 @@ async function Program(){
 
     let counter = 0;
     while (counter < totalPhotoCount){
-        savePhoto();
+        await savePhoto();
+        await WaitAsync(delayBetweenSaves_ms);
         navigateToNext();
-        await new Promise(resolve => setTimeout(resolve, delayBetweenSaves_ms));
         counter++;
     }
 }
