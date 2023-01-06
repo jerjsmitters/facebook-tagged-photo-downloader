@@ -1,0 +1,23 @@
+{
+  "name": "facebookdownloader",
+  "version": "1.0.0",
+  "description": "Facebook doesn't let you download all of your tagged pics in one go. Use this robot to click and save for you.",
+  "main": "facebookPhotoDownloader.js",
+  "dependencies": {
+    "robotjs": "^0.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerjsmitters/facebook-tagged-photo-downloader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jerjsmitters/facebook-tagged-photo-downloader/issues"
+  },
+  "homepage": "https://github.com/jerjsmitters/facebook-tagged-photo-downloader#readme"
+}
