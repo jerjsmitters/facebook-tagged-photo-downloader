@@ -16,10 +16,10 @@ const toContextMenuSave_dy = 2 * units;
 const toModalSaveButton_dx = 5 * units;
 const toModalSaveButton_dy = 5 * units;
 
-
-const delayBetweenSaves_ms = 10000; //we want it to be long enough that we can terminate the process if we need to (manually from cmd)
-const delayWaitForSaveModal_ms = 2000;
-const delayForPageToLoad_ms = 2000;
+const delayWaitForContextMenu_ms = 4000;
+const delayBetweenSaves_ms = 5000; //we want it to be long enough that we can terminate the process if we need to (manually from cmd)
+const delayWaitForSaveModal_ms = 4000;
+const delayForPageToLoad_ms = 5000;
 
 
 // ------ SETUP/FNs ------ //
@@ -50,6 +50,8 @@ async function savePhoto(){
 
     //right click
     robot.mouseClick("right");
+    await WaitAsync(delayWaitForContextMenu_ms);
+
     moveMouseRelative(toContextMenuSave_dx, toContextMenuSave_dy);
     robot.mouseClick();
     moveMouseRelative(toModalSaveButton_dx, toModalSaveButton_dy);
